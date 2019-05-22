@@ -6,10 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@SpringBootApplication
+@SpringBootApplication // same as @Configuration @EnableAutoConfiguration @ComponentScan
 public class ElectronBackendApplication
 {
-
     public static void main(String[] args)
     {
         SpringApplication.run(ElectronBackendApplication.class, args);
@@ -27,5 +26,4 @@ public class ElectronBackendApplication
             }
         };
     }
-
 }
