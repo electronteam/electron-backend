@@ -15,6 +15,7 @@ public class AuthenticationFilter extends OncePerRequestFilter
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException
     {
         final HttpSession session = request.getSession();
+        //TODO - get user from session, check user, set anonymous user ...
         filterChain.doFilter(request, response);
     }
 }
