@@ -19,4 +19,10 @@ public class ProductSearchServiceImpl implements ProductSearchService
     {
         return productSolrDataRepository.getProducts();
     }
+
+    @Override
+    public List<ProductSolrData> getProductsContaining(String word)
+    {
+        return productSolrDataRepository.findByContaining(word);
+    }
 }

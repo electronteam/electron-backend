@@ -5,6 +5,7 @@ import md.electron.electronbackend.search.model.ProductSolrData;
 import md.electron.electronbackend.service.ProductSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,5 +20,11 @@ public class ProductSearchController
     public List<ProductSolrData> getAllProducts()
     {
         return productSearchService.getAllProducts();
+    }
+
+    @GetMapping(value = RequestMappings.SOLR_SEARCH_PRODUCTS)
+    public List<ProductSolrData> searchProducts(@RequestParam(value = "term") String term)
+    {
+        return productSearchService.getProductsContaining(term);
     }
 }

@@ -7,4 +7,6 @@ import java.util.List;
 public interface ProductSearchService
 {
     List<ProductSolrData> getAllProducts();
+
+    List<ProductSolrData> getProductsContaining(String word);
 }
