@@ -29,4 +29,11 @@ public class ProductServiceImpl implements ProductService
 
         return products;
     }
+
+    @Override
+    public ProductData getProductByCode(String code)
+    {
+        final Product product = productRepository.getProductByCode(code);
+        return productConverter.convert(product);
+    }
 }
