@@ -7,7 +7,6 @@ import org.springframework.data.solr.core.mapping.SolrDocument;
 @SolrDocument(collection = "products")
 public class ProductSolrData
 {
-
     @Id
     @Indexed(name = "id", type = "String")
     private String id;
