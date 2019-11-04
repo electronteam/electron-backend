@@ -5,20 +5,34 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Product
+public class Product implements Serializable
 {
     @Id
+    @Column(name = "PRODUCT_ID", unique = true, nullable = false)
     private String id;
+
+    @Column(name = "CODE")
     private String code;
+
+    @Column(name = "NAME")
     private String name;
+
+    @Column(name = "DESCRIPTION")
     private String description;
+
+    @Column(name = "PRICE")
     private double price;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private List<OrderEntry> orderEntry = new ArrayList<>();
 }

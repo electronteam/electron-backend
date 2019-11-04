@@ -3,11 +3,11 @@ package md.electron.electronbackend.controllers;
 import md.electron.electronbackend.constants.RequestMappings;
 import md.electron.electronbackend.data.ProductData;
 import md.electron.electronbackend.service.IndexingService;
+import md.electron.electronbackend.service.OrderService;
 import md.electron.electronbackend.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +23,9 @@ public class ProductController
     @Autowired
     private IndexingService indexingService;
 
+    @Autowired
+    private OrderService orderService;
+
     @GetMapping(value = RequestMappings.PRODUCTS)
     public List<ProductData> getAllProducts()
     {
@@ -33,6 +36,13 @@ public class ProductController
     public ProductData viewProductDetails(@PathVariable String code)
     {
         return productService.getProductByCode(code);
+    }
+
+    @RequestMapping(value = RequestMappings.ADD_TO_CART, method = RequestMethod.POST)
+    public ResponseEntity<Void> addProductToCart(@RequestParam final String code)
+    {
+        orderService.addProductToOrder(code);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping(value = RequestMappings.SOLR_PRODUCTS_INDEXING)
