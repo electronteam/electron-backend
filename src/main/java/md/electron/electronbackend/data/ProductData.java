@@ -12,4 +12,5 @@ public class ProductData
     private String code;
     private String name;
     private String description;
+    private double price;
 }

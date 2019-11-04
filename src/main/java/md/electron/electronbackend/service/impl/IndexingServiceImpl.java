@@ -32,6 +32,7 @@ public class IndexingServiceImpl implements IndexingService
             productSolrData.setCode(product.getCode());
             productSolrData.setName(product.getName());
             productSolrData.setDescription(product.getDescription());
+            productSolrData.setPrice(product.getPrice());
             solrProducts.add(productSolrData);
         });
 

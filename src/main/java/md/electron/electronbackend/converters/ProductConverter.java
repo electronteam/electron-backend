@@ -13,6 +13,7 @@ public class ProductConverter
         productData.setCode(product.getCode());
         productData.setName(product.getName());
         productData.setDescription(product.getDescription());
+        productData.setPrice(product.getPrice());
 
         return productData;
     }
