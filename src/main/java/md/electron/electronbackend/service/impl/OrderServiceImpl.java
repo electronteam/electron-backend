@@ -9,6 +9,8 @@ import md.electron.electronbackend.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderServiceImpl implements OrderService
 {
@@ -22,22 +24,47 @@ public class OrderServiceImpl implements OrderService
     public void addProductToOrder(final String productCode)
     {
         final Product product = productRepository.getProductByCode(productCode);
-        Order order;
-        if (!sessionService.hasSessionOrder())
+        final Order order = sessionService.getSessionOrder();
+
+        final OrderEntry orderEntry = getEntryContainingProduct(product, order);
+        if (orderEntry == null)
         {
-            order = new Order();
+            addNewEntryToOrder(product, order);
         }
         else
         {
-            order = sessionService.getSessionOrder();
+            updateEntryQuantity(orderEntry);
+        }
+        System.out.println("Added product [" + product.getName() + "] to order");
+
+        sessionService.setSessionOrder(order);
+    }
+
+    private OrderEntry getEntryContainingProduct(final Product product, final Order order)
+    {
+        final List<OrderEntry> entries = order.getEntries();
+        for (OrderEntry entry : entries)
+        {
+            if (entry.getProduct().getCode().equals(product.getCode()))
+            {
+                return entry;
+            }
         }
 
+        return null;
+    }
+
+    private void updateEntryQuantity(final OrderEntry orderEntry)
+    {
+        orderEntry.setQuantity(orderEntry.getQuantity() + 1);
+    }
+
+    private void addNewEntryToOrder(final Product product, final Order order)
+    {
         final OrderEntry entry = new OrderEntry();
         entry.setProduct(product);
         entry.setOrder(order);
         entry.setQuantity(1L);
         order.getEntries().add(entry);
-        System.out.println("Added product [" + product.getName() + "] to order");
-        sessionService.setSessionOrder(order);
     }
 }

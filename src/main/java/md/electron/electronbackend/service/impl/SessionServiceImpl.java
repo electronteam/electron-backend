@@ -29,6 +29,11 @@ public class SessionServiceImpl implements SessionService
     @Override
     public boolean hasSessionOrder()
     {
+        return orderIsPresentInSession();
+    }
+
+    private boolean orderIsPresentInSession()
+    {
         final Object attribute = getHttpSession().getAttribute(ORDER);
         return attribute != null;
     }
@@ -42,6 +47,15 @@ public class SessionServiceImpl implements SessionService
     @Override
     public Order getSessionOrder()
     {
-        return (Order) getHttpSession().getAttribute(ORDER);
+        if (orderIsPresentInSession())
+        {
+            return (Order) getHttpSession().getAttribute(ORDER);
+        }
+        else
+        {
+            final Order order = new Order();
+            setSessionOrder(order);
+            return order;
+        }
     }
 }
