@@ -1,5 +1,7 @@
 package md.electron.electronbackend.service.impl;
 
+import md.electron.electronbackend.converters.OrderConverter;
+import md.electron.electronbackend.data.OrderData;
 import md.electron.electronbackend.persistence.model.Order;
 import md.electron.electronbackend.persistence.model.OrderEntry;
 import md.electron.electronbackend.persistence.model.Product;
@@ -20,6 +22,9 @@ public class OrderServiceImpl implements OrderService
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private OrderConverter orderConverter;
+
     @Override
     public void addProductToOrder(final String productCode)
     {
@@ -38,6 +43,12 @@ public class OrderServiceImpl implements OrderService
         System.out.println("Added product [" + product.getName() + "] to order");
 
         sessionService.setSessionOrder(order);
+    }
+
+    @Override
+    public OrderData getCurrentOrder()
+    {
+        return orderConverter.convert(sessionService.getSessionOrder());
     }
 
     private OrderEntry getEntryContainingProduct(final Product product, final Order order)

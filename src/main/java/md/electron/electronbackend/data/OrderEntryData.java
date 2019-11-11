@@ -1,0 +1,14 @@
+package md.electron.electronbackend.data;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class OrderEntryData
+{
+    private Long quantity;
+    private ProductData product;
+}
