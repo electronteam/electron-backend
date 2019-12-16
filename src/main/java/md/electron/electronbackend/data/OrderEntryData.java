@@ -11,4 +11,5 @@ public class OrderEntryData
 {
     private Long quantity;
     private ProductData product;
+    private double totalPrice;
 }

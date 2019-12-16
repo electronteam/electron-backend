@@ -24,4 +24,7 @@ public class Order implements Serializable
 
     @OneToMany(mappedBy = "order")
     private List<OrderEntry> entries = new ArrayList<>();
+
+    @Column(name = "TOTAL_PRICE")
+    private double totalPrice;
 }

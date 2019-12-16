@@ -12,4 +12,5 @@ import java.util.List;
 public class OrderData
 {
     private List<OrderEntryData> entries;
+    private double totalPrice;
 }

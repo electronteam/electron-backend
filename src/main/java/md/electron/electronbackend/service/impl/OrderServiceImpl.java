@@ -6,6 +6,7 @@ import md.electron.electronbackend.persistence.model.Order;
 import md.electron.electronbackend.persistence.model.OrderEntry;
 import md.electron.electronbackend.persistence.model.Product;
 import md.electron.electronbackend.persistence.repositories.ProductRepository;
+import md.electron.electronbackend.service.CalculationService;
 import md.electron.electronbackend.service.OrderService;
 import md.electron.electronbackend.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class OrderServiceImpl implements OrderService
     @Autowired
     private OrderConverter orderConverter;
 
+    @Autowired
+    private CalculationService calculationService;
+
     @Override
     public void addProductToOrder(final String productCode)
     {
@@ -42,6 +46,7 @@ public class OrderServiceImpl implements OrderService
         }
         System.out.println("Added product [" + product.getName() + "] to order");
 
+        calculationService.calculate(order);
         sessionService.setSessionOrder(order);
     }
 

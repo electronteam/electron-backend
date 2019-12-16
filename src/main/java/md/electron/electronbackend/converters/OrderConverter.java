@@ -27,6 +27,7 @@ public class OrderConverter
         {
             OrderEntryData orderEntryData = new OrderEntryData();
             orderEntryData.setQuantity(entry.getQuantity());
+            orderEntryData.setTotalPrice(entry.getTotalPrice());
 
             final Product product = entry.getProduct();
             final ProductData productData = productConverter.convert(product);
@@ -36,6 +37,7 @@ public class OrderConverter
         }
 
         orderData.setEntries(orderDataEntries);
+        orderData.setTotalPrice(order.getTotalPrice());
 
         return orderData;
     }

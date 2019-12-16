@@ -27,6 +27,9 @@ public class OrderEntry implements Serializable
     @Column(name = "QUANTITY")
     private Long quantity;
 
+    @Column(name = "TOTAL_PRICE")
+    private double totalPrice;
+
     @ManyToOne
     @JoinColumn(name = "ORDER_ID", foreignKey = @ForeignKey(name = "FK_ORDER_ID"))
     private Order order;
