@@ -8,6 +8,7 @@ public class RequestMappings
     public static final String SOLR_SEARCH_PRODUCTS = "api/solr/searchProducts";
     public static final String ADD_TO_CART = "/api/addtocart";
     public static final String CURRENT_CART = "/api/currentCart";
+    public static final String PLACE_ORDER = "/api/placeOrder";
 
     public static final String SOLR_PRODUCTS_INDEXING = "api/solr/products/index";
 }

@@ -1,10 +1,12 @@
 package md.electron.electronbackend.service.impl;
 
 import md.electron.electronbackend.converters.OrderConverter;
+import md.electron.electronbackend.data.CheckoutData;
 import md.electron.electronbackend.data.OrderData;
 import md.electron.electronbackend.persistence.model.Order;
 import md.electron.electronbackend.persistence.model.OrderEntry;
 import md.electron.electronbackend.persistence.model.Product;
+import md.electron.electronbackend.persistence.repositories.OrderRepository;
 import md.electron.electronbackend.persistence.repositories.ProductRepository;
 import md.electron.electronbackend.service.CalculationService;
 import md.electron.electronbackend.service.OrderService;
@@ -28,6 +30,9 @@ public class OrderServiceImpl implements OrderService
 
     @Autowired
     private CalculationService calculationService;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Override
     public void addProductToOrder(final String productCode)
@@ -54,6 +59,17 @@ public class OrderServiceImpl implements OrderService
     public OrderData getCurrentOrder()
     {
         return orderConverter.convert(sessionService.getSessionOrder());
+    }
+
+    @Override
+    public void placeOrder(final CheckoutData checkoutData)
+    {
+        final Order order = sessionService.getSessionOrder();
+        if (order != null)
+        {
+            orderRepository.save(order);
+            //TODO - remove order from session, add user to order
+        }
     }
 
     private OrderEntry getEntryContainingProduct(final Product product, final Order order)

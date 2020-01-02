@@ -17,6 +17,7 @@ import java.io.Serializable;
 public class OrderEntry implements Serializable
 {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ORDER_ENTRY_ID", unique = true, nullable = false)
     private Long id;
 

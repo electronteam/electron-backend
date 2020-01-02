@@ -19,10 +19,11 @@ import java.util.List;
 public class Order implements Serializable
 {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ORDER_ID", unique = true, nullable = false)
     private Long id;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderEntry> entries = new ArrayList<>();
 
     @Column(name = "TOTAL_PRICE")
