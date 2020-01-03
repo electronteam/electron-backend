@@ -19,7 +19,7 @@ import java.util.List;
 public class Order implements Serializable
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ORDER_ID", unique = true, nullable = false)
     private Long id;
 
