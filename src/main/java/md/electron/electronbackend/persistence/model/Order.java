@@ -28,4 +28,8 @@ public class Order implements Serializable
 
     @Column(name = "TOTAL_PRICE")
     private double totalPrice;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "USER_ID", foreignKey = @ForeignKey(name = "FK_USER_ID"))
+    private User user;
 }

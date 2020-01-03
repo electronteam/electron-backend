@@ -6,11 +6,13 @@ import md.electron.electronbackend.data.OrderData;
 import md.electron.electronbackend.persistence.model.Order;
 import md.electron.electronbackend.persistence.model.OrderEntry;
 import md.electron.electronbackend.persistence.model.Product;
+import md.electron.electronbackend.persistence.model.User;
 import md.electron.electronbackend.persistence.repositories.OrderRepository;
 import md.electron.electronbackend.persistence.repositories.ProductRepository;
 import md.electron.electronbackend.service.CalculationService;
 import md.electron.electronbackend.service.OrderService;
 import md.electron.electronbackend.service.SessionService;
+import md.electron.electronbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,9 @@ public class OrderServiceImpl implements OrderService
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public void addProductToOrder(final String productCode)
@@ -67,8 +72,9 @@ public class OrderServiceImpl implements OrderService
         final Order order = sessionService.getSessionOrder();
         if (order != null)
         {
+            final User user = userService.createUser(checkoutData);
+            order.setUser(user);
             orderRepository.save(order);
-            //TODO - add user to order
             sessionService.removeSessionOrder();
         }
     }
