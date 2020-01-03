@@ -45,6 +45,12 @@ public class SessionServiceImpl implements SessionService
     }
 
     @Override
+    public void removeSessionOrder()
+    {
+        getHttpSession().removeAttribute(ORDER);
+    }
+
+    @Override
     public Order getSessionOrder()
     {
         if (orderIsPresentInSession())

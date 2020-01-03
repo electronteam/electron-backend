@@ -68,7 +68,8 @@ public class OrderServiceImpl implements OrderService
         if (order != null)
         {
             orderRepository.save(order);
-            //TODO - remove order from session, add user to order
+            //TODO - add user to order
+            sessionService.removeSessionOrder();
         }
     }
 

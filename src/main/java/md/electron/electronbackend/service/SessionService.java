@@ -12,5 +12,7 @@ public interface SessionService
 
     void setSessionOrder(Order order);
 
+    void removeSessionOrder();
+
     Order getSessionOrder();
 }
