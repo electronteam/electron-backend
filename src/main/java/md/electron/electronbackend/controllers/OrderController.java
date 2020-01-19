@@ -1,7 +1,7 @@
 package md.electron.electronbackend.controllers;
 
 import md.electron.electronbackend.constants.RequestMappings;
-import md.electron.electronbackend.data.OrderData;
+import md.electron.electronbackend.data.OrderListViewData;
 import md.electron.electronbackend.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping(value = RequestMappings.ADMIN_ORDERS)
-    public List<OrderData> getAllOrders() {
+    public List<OrderListViewData> getAllOrders() {
         return orderService.getAllOrders();
     }
 }

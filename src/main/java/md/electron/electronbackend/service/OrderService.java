@@ -2,6 +2,7 @@ package md.electron.electronbackend.service;
 
 import md.electron.electronbackend.data.CheckoutData;
 import md.electron.electronbackend.data.OrderData;
+import md.electron.electronbackend.data.OrderListViewData;
 
 import java.util.List;
 
@@ -13,5 +14,5 @@ public interface OrderService
 
     void placeOrder(CheckoutData checkoutData);
 
-    List<OrderData> getAllOrders();
+    List<OrderListViewData> getAllOrders();
 }

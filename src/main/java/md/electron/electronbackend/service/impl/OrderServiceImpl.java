@@ -1,8 +1,10 @@
 package md.electron.electronbackend.service.impl;
 
 import md.electron.electronbackend.converters.OrderConverter;
+import md.electron.electronbackend.converters.OrderListViewConverter;
 import md.electron.electronbackend.data.CheckoutData;
 import md.electron.electronbackend.data.OrderData;
+import md.electron.electronbackend.data.OrderListViewData;
 import md.electron.electronbackend.persistence.model.Order;
 import md.electron.electronbackend.persistence.model.OrderEntry;
 import md.electron.electronbackend.persistence.model.Product;
@@ -29,6 +31,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderConverter orderConverter;
+
+    @Autowired
+    private OrderListViewConverter orderListViewConverter;
 
     @Autowired
     private CalculationService calculationService;
@@ -73,10 +78,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderData> getAllOrders() {
-        final List<OrderData> orders = new ArrayList<>();
+    public List<OrderListViewData> getAllOrders() {
+        final List<OrderListViewData> orders = new ArrayList<>();
         final List<Order> ordersDB = orderRepository.findAll();
-        ordersDB.forEach(order -> orders.add(orderConverter.convert(order)));
+        ordersDB.forEach(order -> orders.add(orderListViewConverter.convert(order)));
 
         return orders;
     }
