@@ -10,5 +10,7 @@ public class RequestMappings
     public static final String CURRENT_CART = "/api/currentCart";
     public static final String PLACE_ORDER = "/api/placeOrder";
 
+    public static final String ADMIN_ORDERS= "/api/admin/orders";
+
     public static final String SOLR_PRODUCTS_INDEXING = "api/solr/products/index";
 }
