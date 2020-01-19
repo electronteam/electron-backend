@@ -16,11 +16,11 @@ import md.electron.electronbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class OrderServiceImpl implements OrderService
-{
+public class OrderServiceImpl implements OrderService {
     @Autowired
     private SessionService sessionService;
 
@@ -40,18 +40,14 @@ public class OrderServiceImpl implements OrderService
     private UserService userService;
 
     @Override
-    public void addProductToOrder(final String productCode)
-    {
+    public void addProductToOrder(final String productCode) {
         final Product product = productRepository.getProductByCode(productCode);
         final Order order = sessionService.getSessionOrder();
 
         final OrderEntry orderEntry = getEntryContainingProduct(product, order);
-        if (orderEntry == null)
-        {
+        if (orderEntry == null) {
             addNewEntryToOrder(product, order);
-        }
-        else
-        {
+        } else {
             updateEntryQuantity(orderEntry);
         }
         System.out.println("Added product [" + product.getName() + "] to order");
@@ -61,17 +57,14 @@ public class OrderServiceImpl implements OrderService
     }
 
     @Override
-    public OrderData getCurrentOrder()
-    {
+    public OrderData getCurrentOrder() {
         return orderConverter.convert(sessionService.getSessionOrder());
     }
 
     @Override
-    public void placeOrder(final CheckoutData checkoutData)
-    {
+    public void placeOrder(final CheckoutData checkoutData) {
         final Order order = sessionService.getSessionOrder();
-        if (order != null)
-        {
+        if (order != null) {
             final User user = userService.createUser(checkoutData);
             order.setUser(user);
             orderRepository.save(order);
@@ -79,13 +72,19 @@ public class OrderServiceImpl implements OrderService
         }
     }
 
-    private OrderEntry getEntryContainingProduct(final Product product, final Order order)
-    {
+    @Override
+    public List<OrderData> getAllOrders() {
+        final List<OrderData> orders = new ArrayList<>();
+        final List<Order> ordersDB = orderRepository.findAll();
+        ordersDB.forEach(order -> orders.add(orderConverter.convert(order)));
+
+        return orders;
+    }
+
+    private OrderEntry getEntryContainingProduct(final Product product, final Order order) {
         final List<OrderEntry> entries = order.getEntries();
-        for (OrderEntry entry : entries)
-        {
-            if (entry.getProduct().getCode().equals(product.getCode()))
-            {
+        for (OrderEntry entry : entries) {
+            if (entry.getProduct().getCode().equals(product.getCode())) {
                 return entry;
             }
         }
@@ -93,13 +92,11 @@ public class OrderServiceImpl implements OrderService
         return null;
     }
 
-    private void updateEntryQuantity(final OrderEntry orderEntry)
-    {
+    private void updateEntryQuantity(final OrderEntry orderEntry) {
         orderEntry.setQuantity(orderEntry.getQuantity() + 1);
     }
 
-    private void addNewEntryToOrder(final Product product, final Order order)
-    {
+    private void addNewEntryToOrder(final Product product, final Order order) {
         final OrderEntry entry = new OrderEntry();
         entry.setProduct(product);
         entry.setOrder(order);
