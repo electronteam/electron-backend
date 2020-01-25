@@ -6,11 +6,15 @@ import md.electron.electronbackend.persistence.model.User;
 import md.electron.electronbackend.persistence.repositories.UserRepository;
 import md.electron.electronbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService
 {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -36,7 +40,11 @@ public class UserServiceImpl implements UserService
         user.setAddress(userData.getAddress());
         user.setPhone(userData.getPhone());
         user.setRole(userData.getRole());
-        user.setPassword(userData.getPassword());
+
+        if (userData.getPassword() != null)
+        {
+            user.setPassword(passwordEncoder.encode(userData.getPassword()));
+        }
 
         userRepository.save(user);
     }
