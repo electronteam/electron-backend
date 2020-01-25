@@ -39,6 +39,12 @@ public class User implements Serializable
     @Column(name = "PHONE")
     private String phone;
 
+    @Column(name = "PASSWORD")
+    private String password;
+
+    @Column(name = "ROLE")
+    private String role;
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Order> orders = new ArrayList<>();
 }
