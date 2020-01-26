@@ -17,6 +17,7 @@ public class AuthenticationService
 
     //an algorithm-specific signing key used to digitally sign the JWT
     //should be used a base64 encoded string
+    //Should be changed for production; kept in a separate file and read it from there
     private static final String SIGNINGKEY = "SecretKey";
 
     //PREFIX defines the prefix of the token and the Bearer schema is typically used
