@@ -1,7 +1,9 @@
 package md.electron.electronbackend.service.impl;
 
+import md.electron.electronbackend.data.AddressData;
 import md.electron.electronbackend.data.CheckoutData;
 import md.electron.electronbackend.data.UserData;
+import md.electron.electronbackend.persistence.model.Address;
 import md.electron.electronbackend.persistence.model.User;
 import md.electron.electronbackend.persistence.repositories.UserRepository;
 import md.electron.electronbackend.service.UserService;
@@ -25,7 +27,6 @@ public class UserServiceImpl implements UserService
         user.setName(checkoutData.getName());
         user.setLastName(checkoutData.getLastName());
         user.setEmail(checkoutData.getEmail());
-        user.setAddress(checkoutData.getAddress());
         user.setPhone(checkoutData.getPhone());
         return user;
     }
@@ -37,9 +38,17 @@ public class UserServiceImpl implements UserService
         user.setName(userData.getName());
         user.setLastName(userData.getLastName());
         user.setEmail(userData.getEmail());
-        user.setAddress(userData.getAddress());
         user.setPhone(userData.getPhone());
         user.setRole(userData.getRole());
+
+        final AddressData addressData = userData.getAddress();
+        if (addressData != null)
+        {
+            final Address address = new Address();
+            address.setCity(addressData.getCity());
+            address.setStreet(addressData.getStreet());
+            user.setUserAddress(address);
+        }
 
         if (userData.getPassword() != null)
         {

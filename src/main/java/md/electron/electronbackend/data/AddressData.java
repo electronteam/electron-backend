@@ -7,11 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CheckoutData
+public class AddressData
 {
-    private String name;
-    private String lastName;
-    private String email;
-    private AddressData address;
-    private String phone;
+    private String city;
+    private String street;
 }
