@@ -35,7 +35,7 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter
         return getAuthenticationManager()
                 //ProviderManager.authenticate will be called, which will call DaoAuthenticationProvider
                 //and which has reference to UserDetailsServiceImpl
-                .authenticate(new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword()));
+                .authenticate(new UsernamePasswordAuthenticationToken(credentials.getEmail(), credentials.getPassword()));
     }
 
     @Override
