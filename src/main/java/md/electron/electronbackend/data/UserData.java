@@ -12,7 +12,7 @@ public class UserData
     private String name;
     private String lastName;
     private String email;
-    private String address;
+    private AddressData address;
     private String phone;
     private String password;
     private String role;

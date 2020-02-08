@@ -2,9 +2,11 @@ package md.electron.electronbackend.service.impl;
 
 import md.electron.electronbackend.converters.OrderConverter;
 import md.electron.electronbackend.converters.OrderListViewConverter;
+import md.electron.electronbackend.data.AddressData;
 import md.electron.electronbackend.data.CheckoutData;
 import md.electron.electronbackend.data.OrderData;
 import md.electron.electronbackend.data.OrderListViewData;
+import md.electron.electronbackend.persistence.model.Address;
 import md.electron.electronbackend.persistence.model.Order;
 import md.electron.electronbackend.persistence.model.OrderEntry;
 import md.electron.electronbackend.persistence.model.Product;
@@ -69,9 +71,20 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void placeOrder(final CheckoutData checkoutData) {
         final Order order = sessionService.getSessionOrder();
+
         if (order != null) {
             final User user = userService.createUser(checkoutData);
             order.setUser(user);
+
+            final AddressData addressData = checkoutData.getAddress();
+            if (addressData != null)
+            {
+                final Address address = new Address();
+                address.setCity(addressData.getCity());
+                address.setStreet(addressData.getStreet());
+                order.setDeliveryAddress(address);
+            }
+
             orderRepository.save(order);
             sessionService.removeSessionOrder();
         }

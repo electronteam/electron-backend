@@ -29,6 +29,10 @@ public class Order implements Serializable
     @Column(name = "TOTAL_PRICE")
     private double totalPrice;
 
+    @OneToOne(cascade = CascadeType.ALL)//CascadeType.ALL - this will save automatically a transient address object
+    @JoinColumn(name = "DELIVERY_ADDRESS_ID", referencedColumnName = "ADDRESS_ID")
+    private Address deliveryAddress;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "USER_ID", foreignKey = @ForeignKey(name = "FK_USER_ID"))
     private User user;

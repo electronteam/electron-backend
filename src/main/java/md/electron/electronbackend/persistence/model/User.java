@@ -33,8 +33,9 @@ public class User implements Serializable
     @Column(name = "EMAIL")
     private String email;
 
-    @Column(name = "ADDRESS")
-    private String address;
+    @OneToOne(cascade = CascadeType.ALL)//CascadeType.ALL - this will save automatically a transient address object
+    @JoinColumn(name = "USER_ADDRESS_ID", referencedColumnName = "ADDRESS_ID")
+    private Address userAddress;
 
     @Column(name = "PHONE")
     private String phone;
