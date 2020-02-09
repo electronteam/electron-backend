@@ -1,5 +1,6 @@
 package md.electron.electronbackend.service.impl;
 
+import md.electron.electronbackend.converters.UserConverter;
 import md.electron.electronbackend.data.AddressData;
 import md.electron.electronbackend.data.CheckoutData;
 import md.electron.electronbackend.data.UserData;
@@ -11,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService
 {
@@ -20,9 +24,11 @@ public class UserServiceImpl implements UserService
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserConverter userConverter;
+
     @Override
-    public User createUser(final CheckoutData checkoutData)
-    {
+    public User createUser(final CheckoutData checkoutData) {
         final User user = new User();
         user.setName(checkoutData.getName());
         user.setLastName(checkoutData.getLastName());
@@ -56,5 +62,13 @@ public class UserServiceImpl implements UserService
         }
 
         userRepository.save(user);
+    }
+
+    @Override
+    public List<UserData> getAllUsers() {
+        final List<UserData> users = new ArrayList<>();
+        final List<User> usersDB = userRepository.findAll();
+        usersDB.forEach(user -> users.add(userConverter.convert(user)));
+        return users;
     }
 }
