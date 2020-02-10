@@ -7,20 +7,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserConverter {
+public class UserConverter
+{
     @Autowired
-    private AdressConverter adressConverter;
+    private AddressConverter addressConverter;
 
-    public UserData convert(final User user) {
+    public UserData convert(final User user)
+    {
         final UserData userData = new UserData();
         userData.setName(user.getName());
         userData.setLastName(user.getLastName());
         userData.setEmail(user.getEmail());
-        final AddressData addressData = adressConverter.convert(user.getUserAddress());
-        userData.setAddress(addressData);
         userData.setPhone(user.getPhone());
-        //userData.setPassword(user.getPassword()); I think we don't need this to be displayed
         userData.setRole(user.getRole());
+
+        if (user.getUserAddress() != null)
+        {
+            final AddressData addressData = addressConverter.convert(user.getUserAddress());
+            userData.setAddress(addressData);
+        }
 
         return userData;
     }
