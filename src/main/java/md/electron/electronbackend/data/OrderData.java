@@ -13,4 +13,6 @@ public class OrderData
 {
     private List<OrderEntryData> entries;
     private double totalPrice;
+    private AddressData deliveryAddress;
+    private UserData userData;
 }
