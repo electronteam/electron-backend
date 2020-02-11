@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderData
 {
+    private Long id;
     private List<OrderEntryData> entries;
     private double totalPrice;
     private AddressData deliveryAddress;

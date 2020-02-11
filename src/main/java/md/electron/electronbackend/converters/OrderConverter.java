@@ -31,6 +31,8 @@ public class OrderConverter
     public OrderData convert(final Order order)
     {
         final OrderData orderData = new OrderData();
+        orderData.setId(order.getId());
+
         final List<OrderEntryData> orderDataEntries = new ArrayList<>();
 
         for (final OrderEntry entry : order.getEntries())
