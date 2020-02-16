@@ -11,6 +11,7 @@ public class RequestMappings
 
     public static final String PRODUCTS = "/api/admin/products";
     public static final String ADMIN_ORDERS = "/api/admin/orders";
+    public static final String ORDER_DETAILS = "/api/admin/order/{code}";
     public static final String ADMIN_CREATE_USER = "/api/admin/createUser";
     public static final String ADMIN_USERS = "/api/admin/users";
 
