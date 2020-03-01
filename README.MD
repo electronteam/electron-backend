@@ -1,9 +1,9 @@
 mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
-## Building the container 
+## Building the container/image 
 docker build -t electron-backend .
 
-## Building the container using dockerfile-maven-plugin
+## Building the container/image using dockerfile-maven-plugin
 mvn clean package 
 
 ## Running the container
