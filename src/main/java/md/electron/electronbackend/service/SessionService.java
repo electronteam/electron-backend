@@ -15,4 +15,8 @@ public interface SessionService
     void removeSessionOrder();
 
     Order getSessionOrder();
+
+    void setLastPlacedOrderId(Long orderId);
+
+    Long getLastPlacedOrderId();
 }
