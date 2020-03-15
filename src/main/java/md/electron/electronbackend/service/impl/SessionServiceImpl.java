@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 public class SessionServiceImpl implements SessionService
 {
     private static final String ORDER = "order";
+    private static final String LAST_ORDER_ID = "lastOrderId";
 
     @Override
     public HttpSession getCurrentSession()
@@ -63,5 +64,17 @@ public class SessionServiceImpl implements SessionService
             setSessionOrder(order);
             return order;
         }
+    }
+
+    @Override
+    public void setLastPlacedOrderId(final Long orderId)
+    {
+        getHttpSession().setAttribute(LAST_ORDER_ID, orderId);
+    }
+
+    @Override
+    public Long getLastPlacedOrderId()
+    {
+        return (Long) getHttpSession().getAttribute(LAST_ORDER_ID);
     }
 }

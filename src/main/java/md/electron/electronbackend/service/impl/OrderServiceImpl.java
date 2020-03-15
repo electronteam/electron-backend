@@ -96,6 +96,7 @@ public class OrderServiceImpl implements OrderService
 
             orderRepository.save(order);
             sessionService.removeSessionOrder();
+            sessionService.setLastPlacedOrderId(order.getId());
         }
     }
 
@@ -112,21 +113,32 @@ public class OrderServiceImpl implements OrderService
     @Override
     public Optional<OrderData> getOrderByCode(final String code)
     {
-        try
+        final Long id = Long.valueOf(code);
+
+        return getOrderById(id);
+    }
+
+    @Override
+    public Optional<OrderData> getLastPlacedOrder()
+    {
+        final Long orderId = sessionService.getLastPlacedOrderId();
+
+        if (orderId != null)
         {
-            final Long id = Long.valueOf(code);
-            final Optional<Order> order = orderRepository.findById(id);
-            if (order.isPresent())
-            {
-                final Order foundOrder = order.get();
-                final OrderData orderData = orderConverter.convert(foundOrder);
-                return Optional.of(orderData);
-            }
+            return getOrderById(orderId);
         }
-        catch (final Exception ex)
+
+        return Optional.empty();
+    }
+
+    private Optional<OrderData> getOrderById(final Long orderId)
+    {
+        final Optional<Order> order = orderRepository.findById(orderId);
+        if (order.isPresent())
         {
-            //TODO - replace the below with a logger
-            System.out.println("An exception occurred when trying to get order by code: " + code + "\n"+ ex.toString());
+            final Order foundOrder = order.get();
+            final OrderData orderData = orderConverter.convert(foundOrder);
+            return Optional.of(orderData);
         }
 
         return Optional.empty();

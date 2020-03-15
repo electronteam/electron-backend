@@ -18,4 +18,6 @@ public interface OrderService
     List<OrderListViewData> getAllOrders();
 
     Optional<OrderData> getOrderByCode(String code);
+
+    Optional<OrderData> getLastPlacedOrder();
 }
