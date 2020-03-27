@@ -18,9 +18,10 @@ import md.electron.electronbackend.service.OrderService;
 import md.electron.electronbackend.service.SessionService;
 import md.electron.electronbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,13 +102,11 @@ public class OrderServiceImpl implements OrderService
     }
 
     @Override
-    public List<OrderListViewData> getAllOrders()
+    public Page<OrderListViewData> getAllOrders(Pageable page)
     {
-        final List<OrderListViewData> orders = new ArrayList<>();
-        final List<Order> ordersDB = orderRepository.findAll();
-        ordersDB.forEach(order -> orders.add(orderListViewConverter.convert(order)));
-
-        return orders;
+        Page<Order> orderPage = orderRepository.findAll(page);
+        Page<OrderListViewData> ordersDB= orderPage.map(order->orderListViewConverter.convert(order));
+        return ordersDB;
     }
 
     @Override
