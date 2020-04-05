@@ -5,9 +5,11 @@ import md.electron.electronbackend.data.ProductData;
 import md.electron.electronbackend.service.IndexingService;
 import md.electron.electronbackend.service.OrderService;
 import md.electron.electronbackend.service.ProductService;
+import md.electron.electronbackend.service.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -26,6 +28,9 @@ public class ProductController
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private StorageService storageService;
+
     @GetMapping(value = RequestMappings.PRODUCTS)
     public List<ProductData> getAllProducts()
     {
@@ -43,6 +48,14 @@ public class ProductController
     {
         orderService.addProductToOrder(code);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping(value = RequestMappings.UPLOAD_PRODUCT_IMAGE)
+    public String uploadProductImage(@PathVariable String code, @RequestParam("file") MultipartFile file)
+    {
+        storageService.storeMedia(file, code);
+
+        return "/";
     }
 
     @GetMapping(value = RequestMappings.SOLR_PRODUCTS_INDEXING)
