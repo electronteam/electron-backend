@@ -5,7 +5,7 @@ import md.electron.electronbackend.data.ProductData;
 import md.electron.electronbackend.service.IndexingService;
 import md.electron.electronbackend.service.OrderService;
 import md.electron.electronbackend.service.ProductService;
-import md.electron.electronbackend.service.storage.StorageService;
+import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,9 +28,6 @@ public class ProductController
     @Autowired
     private OrderService orderService;
 
-    @Autowired
-    private StorageService storageService;
-
     @GetMapping(value = RequestMappings.PRODUCTS)
     public List<ProductData> getAllProducts()
     {
@@ -51,11 +48,18 @@ public class ProductController
     }
 
     @PostMapping(value = RequestMappings.UPLOAD_PRODUCT_IMAGE)
-    public String uploadProductImage(@PathVariable String code, @RequestParam("file") MultipartFile file)
+    public ResponseEntity<Void> uploadProductImage(@PathVariable String code, @RequestParam("file") MultipartFile file)
     {
-        storageService.storeMedia(file, code);
+        try
+        {
+            productService.uploadProductImage(file, code);
 
-        return "/";
+            return ResponseEntity.ok().build();
+        }
+        catch (final Exception e)
+        {
+            return ResponseEntity.status(HttpStatus.SC_INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping(value = RequestMappings.SOLR_PRODUCTS_INDEXING)

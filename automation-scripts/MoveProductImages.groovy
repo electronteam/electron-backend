@@ -4,7 +4,7 @@ import java.nio.file.Paths
 println "Moving product images !!!"
 
 def srcDirectory = new File('src/main/resources/static/medias')
-def destDirectory = "data/media/"
+def destDirectory = "data/medias/products/"
 
 srcDirectory.eachFile {
   filename = it.name

@@ -33,6 +33,9 @@ public class Product implements Serializable
     @Column(name = "PRICE")
     private double price;
 
+    @Column(name = "IMAGE_URL")
+    private String imageURL;
+
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<OrderEntry> orderEntry = new ArrayList<>();
 }

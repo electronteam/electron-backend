@@ -14,6 +14,7 @@ public class ProductConverter
         productData.setName(product.getName());
         productData.setDescription(product.getDescription());
         productData.setPrice(product.getPrice());
+        productData.setImageURL(product.getImageURL());
 
         return productData;
     }

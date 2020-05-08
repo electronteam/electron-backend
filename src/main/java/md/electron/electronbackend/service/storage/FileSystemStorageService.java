@@ -1,26 +1,22 @@
 package md.electron.electronbackend.service.storage;
 
-import org.apache.commons.io.FilenameUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.system.ApplicationHome;
-import org.springframework.core.env.Environment;
+import md.electron.electronbackend.Utils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 @Service
 public class FileSystemStorageService implements StorageService
 {
-    private static final String DATA_MEDIA_DIR = "data.media.dir";
-
-    @Autowired
-    private Environment environment;
+    @Value("${data.media.dir}")
+    private String mediaFolder;
 
     private Path mediaPath;
 
@@ -29,12 +25,9 @@ public class FileSystemStorageService implements StorageService
     {
         try
         {
-            final ApplicationHome home = new ApplicationHome(this.getClass());
-            final File jarDir = home.getDir();
-            final File projectRoot = jarDir.getParentFile().getParentFile();
-            final String projectRootPath = projectRoot.getAbsolutePath();
+            final String projectRootPath = Utils.getProjectRootPath();
 
-            mediaPath = Paths.get(projectRootPath + getMediaFolder());
+            mediaPath = Paths.get(projectRootPath + this.mediaFolder);
             final File mediaFolder = mediaPath.toFile();
             if (!mediaFolder.exists())
             {
@@ -57,7 +50,7 @@ public class FileSystemStorageService implements StorageService
     }
 
     @Override
-    public void storeMedia(MultipartFile file, String newFileName)
+    public void storeMedia(final MultipartFile file, final String target)
     {
         try
         {
@@ -66,18 +59,11 @@ public class FileSystemStorageService implements StorageService
                 throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
             }
 
-            final String fileExtension = FilenameUtils.getExtension(file.getOriginalFilename());
-
-            Files.copy(file.getInputStream(), this.mediaPath.resolve(newFileName + "." + fileExtension));
+            Files.copy(file.getInputStream(), this.mediaPath.resolve(target), StandardCopyOption.REPLACE_EXISTING);
         }
-        catch (IOException e)
+        catch (final Exception e)
         {
             throw new StorageException("Failed to store file " + file.getOriginalFilename(), e);
         }
-    }
-
-    private String getMediaFolder()
-    {
-        return environment.getProperty(DATA_MEDIA_DIR);
     }
 }

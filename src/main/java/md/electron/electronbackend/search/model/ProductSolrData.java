@@ -31,4 +31,7 @@ public class ProductSolrData
 
     @Indexed(name = "price", type = "double")
     private double price;
+
+    @Indexed(name = "imageURL", type = "String")
+    private String imageURL;
 }
