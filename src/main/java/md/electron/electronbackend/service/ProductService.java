@@ -12,4 +12,6 @@ public interface ProductService
     ProductData getProductByCode(String code);
 
     void uploadProductImage(MultipartFile file, String code);
+
+    String getProductImageURL(String code);
 }

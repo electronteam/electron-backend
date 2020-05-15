@@ -40,6 +40,12 @@ public class ProductController
         return productService.getProductByCode(code);
     }
 
+    @GetMapping(value = RequestMappings.PRODUCT_IMAGE_URL)
+    public String getProductImageURL(@PathVariable String code)
+    {
+        return productService.getProductImageURL(code);
+    }
+
     @RequestMapping(value = RequestMappings.ADD_TO_CART, method = RequestMethod.POST)
     public ResponseEntity<Void> addProductToCart(@RequestParam final String code)
     {

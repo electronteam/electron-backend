@@ -62,6 +62,12 @@ public class ProductServiceImpl implements ProductService
         saveProductImageURL(code, productImageUrl);
     }
 
+    @Override
+    public String getProductImageURL(final String code)
+    {
+        return productRepository.getProductImageURL(code);
+    }
+
     private void saveProductImageURL(final String code, final String productImageUrl)
     {
         final Product product = productRepository.getProductByCode(code);
