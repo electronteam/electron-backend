@@ -118,6 +118,12 @@ public class OrderServiceImpl implements OrderService
     }
 
     @Override
+    public void deleteOrderByCode(String code) {
+        final Long id = Long.valueOf(code);
+        orderRepository.deleteById(id);
+    }
+
+    @Override
     public Optional<OrderData> getLastPlacedOrder()
     {
         final Long orderId = sessionService.getLastPlacedOrderId();
