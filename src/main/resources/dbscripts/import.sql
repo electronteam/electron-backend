@@ -7,3 +7,10 @@ INSERT INTO product (product_id, code, description, name, price) VALUES ('6', '6
 
 INSERT INTO category (id, code, description, name) VALUES ('1', '1', 'Electronice', 'Produse electronice');
 INSERT INTO category (id, code, description, name) VALUES ('2', '2', 'Electromontaj', 'Produse de electromontaj');
+
+UPDATE product SET image_url = 'products/product_1.png' WHERE (product_id = '1');
+UPDATE product SET image_url = 'products/product_2.png' WHERE (product_id = '2');
+UPDATE product SET image_url = 'products/product_3.png' WHERE (product_id = '3');
+UPDATE product SET image_url = 'products/product_4.png' WHERE (product_id = '4');
+UPDATE product SET image_url = 'products/product_5.png' WHERE (product_id = '5');
+UPDATE product SET image_url = 'products/product_6.png' WHERE (product_id = '6');
