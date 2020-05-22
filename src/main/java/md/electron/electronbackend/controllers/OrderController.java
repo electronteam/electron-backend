@@ -16,25 +16,29 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-public class OrderController {
+public class OrderController
+{
 
     @Autowired
     private OrderService orderService;
 
     @GetMapping(value = RequestMappings.ADMIN_ORDERS)
-    public Page<OrderListViewData> getAllOrders(Pageable pageable) {
+    public Page<OrderListViewData> getAllOrders(Pageable pageable)
+    {
         return orderService.getAllOrders(pageable);
     }
 
     @GetMapping(value = RequestMappings.ORDER_DETAILS)
-    public ResponseEntity<OrderData> viewOrderDetails(@PathVariable String code) {
+    public ResponseEntity<OrderData> viewOrderDetails(@PathVariable String code)
+    {
         final Optional<OrderData> order = orderService.getOrderByCode(code);
 
         return ResponseEntity.of(order);
     }
 
-    @DeleteMapping(value = RequestMappings.ORDER_DETAILS)
-    public void deleteOrder(@PathVariable String code) {
-         orderService.deleteOrderByCode(code);
+    @DeleteMapping(value = RequestMappings.DELETE_ORDER)
+    public void deleteOrder(@PathVariable String code)
+    {
+        orderService.deleteOrderByCode(code);
     }
 }

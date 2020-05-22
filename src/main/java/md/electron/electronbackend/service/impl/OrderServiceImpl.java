@@ -118,8 +118,9 @@ public class OrderServiceImpl implements OrderService
     }
 
     @Override
-    public void deleteOrderByCode(String code) {
+    public void deleteOrderByCode(final String code) {
         final Long id = Long.valueOf(code);
+
         orderRepository.deleteById(id);
     }
 
