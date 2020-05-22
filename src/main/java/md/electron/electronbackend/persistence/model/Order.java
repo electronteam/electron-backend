@@ -33,7 +33,7 @@ public class Order implements Serializable
     @JoinColumn(name = "DELIVERY_ADDRESS_ID", referencedColumnName = "ADDRESS_ID")
     private Address deliveryAddress;
 
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "USER_ID", foreignKey = @ForeignKey(name = "FK_USER_ID"))
     private User user;
 }
