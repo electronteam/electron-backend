@@ -15,6 +15,7 @@ public class RequestMappings
     public static final String UPLOAD_PRODUCT_IMAGE = "api/upload/productImage/{code}";
     public static final String ADMIN_ORDERS = "/api/admin/orders";
     public static final String ORDER_DETAILS = "/api/admin/order/{code}";
+    public static final String DELETE_ORDER = "/api/admin/delete/order/{code}";
     public static final String ADMIN_CREATE_USER = "/api/admin/createUser";
     public static final String ADMIN_USERS = "/api/admin/users";
 

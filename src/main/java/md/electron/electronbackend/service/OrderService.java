@@ -20,5 +20,7 @@ public interface OrderService
 
     Optional<OrderData> getOrderByCode(String code);
 
+    void deleteOrderByCode(String code);
+
     Optional<OrderData> getLastPlacedOrder();
 }
