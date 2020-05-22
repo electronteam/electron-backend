@@ -11,6 +11,7 @@ public class RequestMappings
     public static final String PLACE_ORDER = "/api/placeOrder";
     public static final String LAST_PLACED_ORDER = "/api/lastPlacedOrder";
 
+    public static final String ALL_PRODUCTS = "/api/admin/allProducts";
     public static final String PRODUCTS = "/api/admin/products";
     public static final String UPLOAD_PRODUCT_IMAGE = "api/upload/productImage/{code}";
     public static final String ADMIN_ORDERS = "/api/admin/orders";

@@ -7,6 +7,8 @@ import md.electron.electronbackend.service.OrderService;
 import md.electron.electronbackend.service.ProductService;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,10 +30,16 @@ public class ProductController
     @Autowired
     private OrderService orderService;
 
-    @GetMapping(value = RequestMappings.PRODUCTS)
+    @GetMapping(value = RequestMappings.ALL_PRODUCTS)
     public List<ProductData> getAllProducts()
     {
         return productService.getAllProducts();
+    }
+
+    @GetMapping(value = RequestMappings.PRODUCTS)
+    public Page<ProductData> getProducts(final Pageable page)
+    {
+        return productService.getProducts(page);
     }
 
     @GetMapping(value = RequestMappings.PRODUCT_DETAILS)
