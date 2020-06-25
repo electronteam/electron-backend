@@ -18,4 +18,16 @@ public class ProductConverter
 
         return productData;
     }
+
+    public Product convert(final ProductData productData)
+    {
+        final Product product = new Product();
+        product.setCode(productData.getCode());
+        product.setName(productData.getName());
+        product.setDescription(productData.getDescription());
+        product.setPrice(productData.getPrice());
+        product.setImageURL(productData.getImageURL());
+
+        return product;
+    }
 }

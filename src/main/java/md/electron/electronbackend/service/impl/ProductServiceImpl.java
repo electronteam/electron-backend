@@ -62,6 +62,13 @@ public class ProductServiceImpl implements ProductService
     }
 
     @Override
+    public void createProduct(final ProductData productData)
+    {
+        final Product product = productConverter.convert(productData);
+        productRepository.save(product);
+    }
+
+    @Override
     public void uploadProductImage(final MultipartFile file, final String code)
     {
         final String fileExtension = FilenameUtils.getExtension(file.getOriginalFilename());

@@ -15,11 +15,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "products")
 public class Product implements Serializable
 {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PRODUCT_ID", unique = true, nullable = false)
-    private String id;
+    private Long id;
 
     @Column(name = "CODE")
     private String code;

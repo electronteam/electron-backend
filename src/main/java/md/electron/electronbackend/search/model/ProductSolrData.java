@@ -18,7 +18,7 @@ public class ProductSolrData
 {
     @Id
     @Indexed(name = "id", type = "String")
-    private String id;
+    private Long id;
 
     @Indexed(name = "code", type = "String")
     private String code;

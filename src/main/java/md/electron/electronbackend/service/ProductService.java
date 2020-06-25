@@ -18,4 +18,6 @@ public interface ProductService
     void uploadProductImage(MultipartFile file, String code);
 
     String getProductImageURL(String code);
+
+    void createProduct(ProductData productData);
 }
