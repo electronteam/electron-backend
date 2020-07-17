@@ -36,7 +36,8 @@ docker network connect electron-network electron-backend
 ## Inspect the network
 docker inspect electron-network
 
-#Build the container - use this when code changes have been done
+# Build the container - use this when code changes have been done 
+# don't forget to run 'mvn clean package' before this
 docker-compose build
 
 # Builds, (re)creates, starts, and attaches to containers for a service.

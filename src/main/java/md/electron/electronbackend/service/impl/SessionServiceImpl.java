@@ -42,6 +42,7 @@ public class SessionServiceImpl implements SessionService
     @Override
     public void setSessionOrder(final Order order)
     {
+        //TODO - toString() throws exception, maybe put in session OrderData instead of Order
         getHttpSession().setAttribute(ORDER, order);
     }
 
