@@ -1,6 +1,5 @@
 package md.electron.electronbackend.config;
 
-import md.electron.electronbackend.Utils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -15,8 +14,7 @@ public class StaticResourceConfig implements WebMvcConfigurer
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry)
     {
-        final String projectRootPath = Utils.getProjectRootPath();
         registry.addResourceHandler("/**")
-                .addResourceLocations(String.format("file:%s%s", projectRootPath, this.mediaFolder), "classpath:/static/");
+                .addResourceLocations(String.format("file:%s", this.mediaFolder), "classpath:/static/");
     }
 }

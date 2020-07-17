@@ -1,6 +1,5 @@
 package md.electron.electronbackend.service.storage;
 
-import md.electron.electronbackend.Utils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,9 +24,7 @@ public class FileSystemStorageService implements StorageService
     {
         try
         {
-            final String projectRootPath = Utils.getProjectRootPath();
-
-            mediaPath = Paths.get(projectRootPath + this.mediaFolder);
+            mediaPath = Paths.get(this.mediaFolder);
             final File mediaFolder = mediaPath.toFile();
             if (!mediaFolder.exists())
             {
