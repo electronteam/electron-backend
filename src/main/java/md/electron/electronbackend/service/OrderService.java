@@ -25,4 +25,6 @@ public interface OrderService
     void deleteOrderByCode(String code);
 
     Optional<OrderData> getLastPlacedOrder();
+
+    void deleteEntryFromCurrentCart(String productCode);
 }

@@ -146,6 +146,16 @@ public class OrderServiceImpl implements OrderService
         return Optional.empty();
     }
 
+    @Override
+    public void deleteEntryFromCurrentCart(final String productCode)
+    {
+        final Order sessionOrder = sessionService.getSessionOrder();
+
+        sessionOrder.getEntries().removeIf(orderEntry -> orderEntry.getProduct().getCode().equalsIgnoreCase(productCode));
+
+        sessionService.setSessionOrder(sessionOrder);
+    }
+
     private Optional<OrderData> getOrderById(final Long orderId)
     {
         final Optional<Order> order = orderRepository.findById(orderId);
