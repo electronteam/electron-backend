@@ -18,4 +18,10 @@ public class CartController
     {
         return orderService.getCurrentOrder();
     }
+
+    @GetMapping(value = RequestMappings.CURRENT_CART_COUNT)
+    public Long getCartItemsCount()
+    {
+        return orderService.getCurrentOrderItemsCount();
+    }
 }

@@ -77,6 +77,15 @@ public class OrderServiceImpl implements OrderService
     }
 
     @Override
+    public Long getCurrentOrderItemsCount()
+    {
+        final Order sessionOrder = sessionService.getSessionOrder();
+
+        return sessionOrder.getEntries().stream().map(OrderEntry::getQuantity).reduce(0L, Long::sum);
+    }
+
+
+    @Override
     public void placeOrder(final CheckoutData checkoutData)
     {
         final Order order = sessionService.getSessionOrder();

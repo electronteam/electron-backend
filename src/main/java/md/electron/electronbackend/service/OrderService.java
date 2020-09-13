@@ -14,6 +14,8 @@ public interface OrderService
 
     OrderData getCurrentOrder();
 
+    Long getCurrentOrderItemsCount();
+
     void placeOrder(CheckoutData checkoutData);
 
     Page<OrderListViewData> getAllOrders(Pageable page);
