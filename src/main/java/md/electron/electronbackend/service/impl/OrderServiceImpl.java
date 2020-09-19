@@ -52,19 +52,18 @@ public class OrderServiceImpl implements OrderService
     @Override
     public void addProductToOrder(final String productCode)
     {
-        final Product product = productRepository.getProductByCode(productCode);
         final Order order = sessionService.getSessionOrder();
 
-        final OrderEntry orderEntry = getEntryContainingProduct(product, order);
+        final OrderEntry orderEntry = getEntryContainingProduct(productCode, order);
         if (orderEntry == null)
         {
-            addNewEntryToOrder(product, order);
+            addNewEntryToOrder(productCode, order);
         }
         else
         {
-            updateEntryQuantity(orderEntry);
+            //updateEntryQuantity
+            orderEntry.setQuantity(orderEntry.getQuantity() + 1);
         }
-        System.out.println("Added product [" + product.getName() + "] to order");
 
         calculationService.calculate(order);
         sessionService.setSessionOrder(order);
@@ -156,6 +155,18 @@ public class OrderServiceImpl implements OrderService
         sessionService.setSessionOrder(sessionOrder);
     }
 
+    @Override
+    public void updateCurrentCart(final String productCode, final Long newQty)
+    {
+        final Order sessionOrder = sessionService.getSessionOrder();
+
+        final OrderEntry orderEntry = getEntryContainingProduct(productCode, sessionOrder);
+        orderEntry.setQuantity(newQty);
+
+        //TODO - use AOP for this
+        sessionService.setSessionOrder(sessionOrder);
+    }
+
     private Optional<OrderData> getOrderById(final Long orderId)
     {
         final Optional<Order> order = orderRepository.findById(orderId);
@@ -169,12 +180,12 @@ public class OrderServiceImpl implements OrderService
         return Optional.empty();
     }
 
-    private OrderEntry getEntryContainingProduct(final Product product, final Order order)
+    private OrderEntry getEntryContainingProduct(final String productCode, final Order order)
     {
         final List<OrderEntry> entries = order.getEntries();
         for (OrderEntry entry : entries)
         {
-            if (entry.getProduct().getCode().equals(product.getCode()))
+            if (entry.getProduct().getCode().equals(productCode))
             {
                 return entry;
             }
@@ -183,13 +194,10 @@ public class OrderServiceImpl implements OrderService
         return null;
     }
 
-    private void updateEntryQuantity(final OrderEntry orderEntry)
+    private void addNewEntryToOrder(final String productCode, final Order order)
     {
-        orderEntry.setQuantity(orderEntry.getQuantity() + 1);
-    }
+        final Product product = productRepository.getProductByCode(productCode);
 
-    private void addNewEntryToOrder(final Product product, final Order order)
-    {
         final OrderEntry entry = new OrderEntry();
         entry.setProduct(product);
         entry.setOrder(order);

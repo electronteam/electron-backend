@@ -27,4 +27,6 @@ public interface OrderService
     Optional<OrderData> getLastPlacedOrder();
 
     void deleteEntryFromCurrentCart(String productCode);
+
+    void updateCurrentCart(String productCode, Long newQty);
 }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -35,6 +36,21 @@ public class CartController
         try
         {
             orderService.deleteEntryFromCurrentCart(productCode);
+        }
+        catch (Exception ex)
+        {
+            return ResponseEntity.status(HttpStatus.SC_INTERNAL_SERVER_ERROR).build();
+        }
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(value = RequestMappings.CART_UPDATE)
+    public ResponseEntity<Void> updateCurrentCart(@RequestParam final String productCode, @RequestParam final Long newQty)
+    {
+        try
+        {
+            orderService.updateCurrentCart(productCode, newQty);
         }
         catch (Exception ex)
         {

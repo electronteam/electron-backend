@@ -10,6 +10,7 @@ public class RequestMappings
     public static final String CURRENT_CART = "/api/currentCart";
     public static final String CURRENT_CART_COUNT = "/api/currentCart/count";
     public static final String CART_DELETE_ENTRY = "/api/currentCart/deleteEntry/{productCode}";
+    public static final String CART_UPDATE = "/api/currentCart/update";
     public static final String PLACE_ORDER = "/api/placeOrder";
     public static final String LAST_PLACED_ORDER = "/api/lastPlacedOrder";
 
