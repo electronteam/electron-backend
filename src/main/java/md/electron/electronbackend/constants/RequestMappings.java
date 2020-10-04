@@ -22,6 +22,7 @@ public class RequestMappings
     public static final String DELETE_ORDER = "/api/admin/delete/order/{code}";
     public static final String ADMIN_CREATE_USER = "/api/admin/createUser";
     public static final String ADMIN_CREATE_PRODUCT = "/api/admin/createProduct";
+    public static final String ADMIN_UPDATE_PRODUCT = "/api/admin/updateProduct";
     public static final String ADMIN_USERS = "/api/admin/users";
 
     public static final String SOLR_PRODUCTS_INDEXING = "api/solr/products/index";

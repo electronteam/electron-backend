@@ -93,11 +93,25 @@ public class ProductController
     }
 
     @PostMapping(value = RequestMappings.ADMIN_CREATE_PRODUCT)
-    public ResponseEntity<Void> createUser(@ModelAttribute ProductData productData)
+    public ResponseEntity<Void> createProduct(@ModelAttribute ProductData productData)
     {
         try
         {
             productService.createProduct(productData);
+            return ResponseEntity.noContent().build();
+        }
+        catch (final Exception e)
+        {
+            return ResponseEntity.status(HttpStatus.SC_INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PostMapping(value = RequestMappings.ADMIN_UPDATE_PRODUCT)
+    public ResponseEntity<Void> updateProduct(@ModelAttribute ProductData productData)
+    {
+        try
+        {
+            productService.updateProduct(productData);
             return ResponseEntity.noContent().build();
         }
         catch (final Exception e)

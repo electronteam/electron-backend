@@ -20,4 +20,6 @@ public interface ProductService
     String getProductImageURL(String code);
 
     void createProduct(ProductData productData);
+
+    void updateProduct(ProductData productData);
 }

@@ -4,6 +4,7 @@ import md.electron.electronbackend.converters.ProductConverter;
 import md.electron.electronbackend.data.ProductData;
 import md.electron.electronbackend.persistence.model.Product;
 import md.electron.electronbackend.persistence.repositories.ProductRepository;
+import md.electron.electronbackend.populators.ProductPopulator;
 import md.electron.electronbackend.service.ProductService;
 import md.electron.electronbackend.service.storage.StorageService;
 import org.apache.commons.io.FilenameUtils;
@@ -29,6 +30,9 @@ public class ProductServiceImpl implements ProductService
 
     @Autowired
     private ProductConverter productConverter;
+
+    @Autowired
+    private ProductPopulator productPopulator;
 
     @Autowired
     private StorageService storageService;
@@ -65,6 +69,14 @@ public class ProductServiceImpl implements ProductService
     public void createProduct(final ProductData productData)
     {
         final Product product = productConverter.convert(productData);
+        productRepository.save(product);
+    }
+
+    @Override
+    public void updateProduct(final ProductData productData)
+    {
+        final Product product = productRepository.getProductByCode(productData.getCode());
+        productPopulator.populate(productData, product);
         productRepository.save(product);
     }
 
