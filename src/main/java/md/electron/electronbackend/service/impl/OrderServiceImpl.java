@@ -162,6 +162,7 @@ public class OrderServiceImpl implements OrderService
 
         final OrderEntry orderEntry = getEntryContainingProduct(productCode, sessionOrder);
         orderEntry.setQuantity(newQty);
+        calculationService.calculate(sessionOrder);
 
         //TODO - use AOP for this
         sessionService.setSessionOrder(sessionOrder);
