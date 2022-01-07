@@ -4,6 +4,8 @@ import md.electron.electronbackend.constants.RequestMappings;
 import md.electron.electronbackend.data.UserData;
 import md.electron.electronbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,10 +27,15 @@ public class UserController
         return ResponseEntity.noContent().build();
     }
 
-
-    @GetMapping(value = RequestMappings.ADMIN_USERS)
+    @GetMapping(value = RequestMappings.ADMIN_ALL_USERS)
     public List<UserData> getAllUsers()
     {
         return userService.getAllUsers();
+    }
+
+    @GetMapping(value = RequestMappings.ADMIN_USERS)
+    public Page<UserData> getUsers(final Pageable page)
+    {
+        return userService.getUsers(page);
     }
 }
