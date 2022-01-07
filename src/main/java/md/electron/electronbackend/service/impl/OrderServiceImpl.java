@@ -113,7 +113,7 @@ public class OrderServiceImpl implements OrderService
     public Page<OrderListViewData> getAllOrders(Pageable page)
     {
         Page<Order> orderPage = orderRepository.findAll(page);
-        Page<OrderListViewData> ordersDB= orderPage.map(order->orderListViewConverter.convert(order));
+        Page<OrderListViewData> ordersDB = orderPage.map(order -> orderListViewConverter.convert(order));
         return ordersDB;
     }
 
@@ -126,7 +126,8 @@ public class OrderServiceImpl implements OrderService
     }
 
     @Override
-    public void deleteOrderByCode(final String code) {
+    public void deleteOrderByCode(final String code)
+    {
         final Long id = Long.valueOf(code);
 
         orderRepository.deleteById(id);
@@ -161,11 +162,14 @@ public class OrderServiceImpl implements OrderService
         final Order sessionOrder = sessionService.getSessionOrder();
 
         final OrderEntry orderEntry = getEntryContainingProduct(productCode, sessionOrder);
-        orderEntry.setQuantity(newQty);
-        calculationService.calculate(sessionOrder);
+        if (orderEntry != null)
+        {
+            orderEntry.setQuantity(newQty);
+            calculationService.calculate(sessionOrder);
 
-        //TODO - use AOP for this
-        sessionService.setSessionOrder(sessionOrder);
+            //TODO - use AOP for this
+            sessionService.setSessionOrder(sessionOrder);
+        }
     }
 
     private Optional<OrderData> getOrderById(final Long orderId)
