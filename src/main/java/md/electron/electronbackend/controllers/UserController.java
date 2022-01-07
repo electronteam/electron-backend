@@ -9,10 +9,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController
@@ -37,5 +39,12 @@ public class UserController
     public Page<UserData> getUsers(final Pageable page)
     {
         return userService.getUsers(page);
+    }
+
+    @GetMapping(value = RequestMappings.USER_DETAILS)
+    public ResponseEntity<UserData> viewUserDetails(@PathVariable String id)
+    {
+        final Optional<UserData> user = userService.getUserById(id);
+        return ResponseEntity.of(user);
     }
 }

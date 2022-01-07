@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService
 {
@@ -17,4 +18,6 @@ public interface UserService
     List<UserData> getAllUsers();
 
     Page<UserData> getUsers(Pageable page);
+
+    Optional<UserData> getUserById(String id);
 }

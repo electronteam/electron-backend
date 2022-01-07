@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService
@@ -79,5 +80,26 @@ public class UserServiceImpl implements UserService
     {
         final Page<User> usersDB = userRepository.findAll(page);
         return usersDB.map(user -> userConverter.convert(user));
+    }
+
+    @Override
+    public Optional<UserData> getUserById(final String id)
+    {
+        final Long userId = Long.valueOf(id);
+
+        return getUserById(userId);
+    }
+
+    private Optional<UserData> getUserById(final Long userId)
+    {
+        final Optional<User> user = userRepository.findById(userId);
+        if (user.isPresent())
+        {
+            final User foundUser = user.get();
+            final UserData userData = userConverter.convert(foundUser);
+            return Optional.of(userData);
+        }
+
+        return Optional.empty();
     }
 }

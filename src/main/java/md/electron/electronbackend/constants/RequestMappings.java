@@ -25,6 +25,7 @@ public class RequestMappings
     public static final String ADMIN_UPDATE_PRODUCT = "/api/admin/updateProduct";
     public static final String ADMIN_ALL_USERS = "/api/admin/allUsers";
     public static final String ADMIN_USERS = "/api/admin/users";
+    public static final String USER_DETAILS = "api/admin/user/{id}";
 
     public static final String SOLR_PRODUCTS_INDEXING = "api/solr/products/index";
 }
