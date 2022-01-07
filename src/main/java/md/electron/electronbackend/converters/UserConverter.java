@@ -15,6 +15,7 @@ public class UserConverter
     public UserData convert(final User user)
     {
         final UserData userData = new UserData();
+        userData.setId(user.getId());
         userData.setName(user.getName());
         userData.setLastName(user.getLastName());
         userData.setEmail(user.getEmail());
