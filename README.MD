@@ -57,3 +57,6 @@ docker exec -it electron-backend /bin/sh
 
 ## check if volume has been correctly created/mounted
 cd data && ls && cd medias && ls && cd products && ls
+
+# Start the application from command line
+./mvnw spring-boot:run
