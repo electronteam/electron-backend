@@ -60,3 +60,5 @@ cd data && ls && cd medias && ls && cd products && ls
 
 # Start the application from command line
 ./mvnw spring-boot:run
+# or
+mvn spring-boot:run
