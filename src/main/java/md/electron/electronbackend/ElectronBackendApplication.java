@@ -23,7 +23,7 @@ public class ElectronBackendApplication
             public void addCorsMappings(final CorsRegistry registry)
             {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000", "http://localhost:3001")
+                        .allowedOrigins("http://localhost:3000", "http://localhost:3001", "http://92.181.140.74:3000", "http://92.181.140.74:3001")
                         .allowCredentials(true);
             }
         };
