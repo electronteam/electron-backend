@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     {
         http.csrf().disable();
         http.cors().and().authorizeRequests()
-                .antMatchers( "/api/admin/**").authenticated()
+                .antMatchers( "/api/aadmin/**").authenticated()
                 .and()
                 // Filter for the api/login requests
                 .addFilterBefore(new LoginFilter("/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)

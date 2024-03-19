@@ -16,8 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-//remember -  'Serializable' is mandatory; e.g. without it, hibernate won't autogenerate the ID
-public class User implements Serializable
+public class User extends Item
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

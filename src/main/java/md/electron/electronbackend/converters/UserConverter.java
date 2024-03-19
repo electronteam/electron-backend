@@ -21,6 +21,7 @@ public class UserConverter
         userData.setEmail(user.getEmail());
         userData.setPhone(user.getPhone());
         userData.setRole(user.getRole());
+        userData.setCreationTime(user.getCreationTime());
 
         if (user.getUserAddress() != null)
         {
